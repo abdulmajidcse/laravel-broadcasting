@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\SendMessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('messages/send', function () {
+        SendMessage::dispatch(uniqid('welcome'));
 
-require __DIR__.'/auth.php';
+        return 'message sent.';
+    });
+
+    Route::get('messages/get', function () {
+        return view('send-message');
+    });
+});
+
+require __DIR__ . '/auth.php';
