@@ -18,10 +18,10 @@
     @push('scripts')
         <script>
             window.onload = () => {
-                console.log("Laravel Broadcasting start...");
+                console.log("Broadcasting on...");
                 Echo.private('send-message').listen('SendMessage', (e) => {
-                    console.log('broadcasting...');
                     console.log(e);
+                    alert(e.message);
                 });
             };
         </script>
