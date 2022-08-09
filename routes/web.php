@@ -26,11 +26,11 @@ Route::middleware('auth')->group(function () {
         SendMessage::dispatch(uniqid('welcome'));
 
         return 'message sent.';
-    });
+    })->name('messages.send');
 
     Route::get('messages/get', function () {
         return view('send-message');
-    });
+    })->name('messages.get');
 });
 
 require __DIR__ . '/auth.php';
